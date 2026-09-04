@@ -2847,3 +2847,47 @@ body.cart-open {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* FIX 2026-09-03: el CTA del producto permanece clicable;
+   si la cantidad es 0, JavaScript muestra una indicación al usuario. */
+.product-cta, .modal-cta { pointer-events: auto; }
+
+
+/* =========================================================
+   ESTADOS VISUALES DEL CARRITO SIN RESETEAR LA CANTIDAD
+   ========================================================= */
+.product-cta.added,
+.modal-cta.added {
+  background: #163f2d !important;
+  border-color: #2f9b6b !important;
+  color: #f4fff9 !important;
+}
+
+.product-cta.update,
+.modal-cta.update {
+  background: #a56b00 !important;
+  border-color: #d99818 !important;
+  color: #fffaf0 !important;
+}
+
+.product-cta.remove,
+.modal-cta.remove {
+  background: transparent !important;
+  border-color: #7d3439 !important;
+  color: #ffb5bb !important;
+}
+
+.product-cta.added:hover,
+.modal-cta.added:hover {
+  background: #1d5039 !important;
+}
+
+.product-cta.update:hover,
+.modal-cta.update:hover {
+  background: #bb7900 !important;
+}
+
+.product-cta.remove:hover,
+.modal-cta.remove:hover {
+  background: rgba(229, 21, 37, .08) !important;
+}
