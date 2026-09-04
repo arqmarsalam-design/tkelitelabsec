@@ -390,6 +390,38 @@ function priceTemplate(product, context = "card") {
   `;
 }
 
+function selectedTotalTemplate(product, context = "card") {
+  const quantity = Number(quantities[product.id] || 0);
+  const total = discountedPrice(product) * quantity;
+  const prefix = context === "modal" ? "modal-" : "";
+  const visibleClass = quantity > 0 ? " visible" : "";
+
+  return `
+    <div class="${prefix}selected-total${visibleClass}" data-selected-total="${product.id}" aria-live="polite">
+      <span>${quantity > 0 ? `${quantity} × ${formatPrice(discountedPrice(product))}` : "Selecciona una cantidad"}</span>
+      <strong>${quantity > 0 ? `Total: ${formatPrice(total)}` : ""}</strong>
+    </div>
+  `;
+}
+
+function updateSelectedTotal(productId) {
+  const product = getProduct(productId);
+  if (!product) return;
+
+  const quantity = Number(quantities[productId] || 0);
+  const unitPrice = discountedPrice(product);
+  const total = unitPrice * quantity;
+  const elements = document.querySelectorAll(`[data-selected-total="${productId}"]`);
+
+  elements.forEach(element => {
+    element.classList.toggle("visible", quantity > 0);
+    const label = element.querySelector("span");
+    const value = element.querySelector("strong");
+    if (label) label.textContent = quantity > 0 ? `${quantity} × ${formatPrice(unitPrice)}` : "Selecciona una cantidad";
+    if (value) value.textContent = quantity > 0 ? `Total: ${formatPrice(total)}` : "";
+  });
+}
+
 function ctaText(product) {
   const selectedQuantity = Number(quantities[product.id] || 0);
   const cartQuantity = Number(cart[product.id] || 0);
@@ -466,6 +498,7 @@ function updateQuantity(productId, delta) {
   }
 
   updateProductActionState(productId);
+  updateSelectedTotal(productId);
 }
 
 // =========================================================
@@ -494,6 +527,7 @@ function productCardTemplate(product) {
         <p class="product-hook">${product.hook}</p>
         <p class="product-presentation">${product.presentation}</p>
         ${priceTemplate(product)}
+        ${selectedTotalTemplate(product)}
 
         <div class="card-controls">
           <button
@@ -805,6 +839,7 @@ function updateCartItem(productId, delta) {
   saveCart();
   renderCart();
   updateProductActionState(productId);
+  updateSelectedTotal(productId);
 }
 
 function removeCartItem(productId) {
@@ -832,8 +867,14 @@ function cartItemTemplate(product, quantity) {
         <h3>${product.title}</h3>
         <p class="cart-item-presentation">${product.presentation}</p>
         <div class="cart-item-price">
-          <span>${formatPrice(unitPrice)} c/u</span>
-          <strong>${formatPrice(subtotal)}</strong>
+          <div class="cart-unit-price">
+            <span>PRECIO UNITARIO</span>
+            <strong>${formatPrice(unitPrice)}</strong>
+          </div>
+          <div class="cart-subtotal">
+            <span>SUBTOTAL</span>
+            <strong>${formatPrice(subtotal)}</strong>
+          </div>
         </div>
         <div class="cart-item-controls">
           <div class="quantity-control cart-quantity" aria-label="Cantidad de ${product.title} en el carrito">
