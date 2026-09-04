@@ -961,15 +961,48 @@ function buildCartWhatsAppUrl() {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
+function resetCartAfterWhatsApp() {
+  Object.keys(quantities).forEach(productId => {
+    quantities[productId] = 0;
+  });
+
+  cart = {};
+
+  try {
+    localStorage.removeItem(CART_STORAGE_KEY);
+  } catch (error) {
+    console.warn("No se pudo limpiar el carrito guardado localmente.", error);
+  }
+
+  renderCart();
+  renderProducts();
+
+  if (currentProductId) {
+    modalQuantityValue.textContent = "0";
+    updateProductActionState(currentProductId);
+    updateSelectedTotal(currentProductId);
+  }
+
+  closeCart();
+}
+
 function sendCartToWhatsApp(event) {
+  if (event) event.preventDefault();
+
   if (!cartUnitCount()) {
-    if (event) event.preventDefault();
     showToast("Tu carrito está vacío.");
     return;
   }
 
-  // El href se actualiza desde renderCart para que WhatsApp se abra como enlace real.
-  sendCartWhatsApp.href = buildCartWhatsAppUrl();
+  // Guardamos la URL antes de limpiar el carrito para conservar el mensaje completo.
+  const whatsappUrl = buildCartWhatsAppUrl();
+
+  // Reiniciamos la selección antes de salir de la página. Así, al volver desde
+  // WhatsApp (incluso usando el botón Atrás), el catálogo ya aparece limpio.
+  resetCartAfterWhatsApp();
+
+  // Navegación directa a wa.me: funciona mejor en móvil y evita bloqueadores de pop-ups.
+  window.location.href = whatsappUrl;
 }
 
 openCartButton.addEventListener("click", openCart);
