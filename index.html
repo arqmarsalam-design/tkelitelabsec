@@ -32,9 +32,16 @@
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
-      ☰
-    </button>
+    <div class="header-actions">
+      <button class="cart-button" id="openCart" type="button" aria-label="Abrir carrito">
+        <span class="cart-button-label">CARRITO</span>
+        <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+      </button>
+
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+        ☰
+      </button>
+    </div>
   </header>
 
   <main>
@@ -220,8 +227,8 @@
           <p>En “Ver información” encontrarás su descripción, información general, características, presentación y conservación.</p>
         </details>
         <details>
-          <summary>¿Puedo consultar varios productos?</summary>
-          <p>Sí. Nuestro equipo puede orientarte sobre disponibilidad, presentaciones y el proceso de compra de los productos que te interesen.</p>
+          <summary>¿Puedo enviar varios productos en una sola consulta?</summary>
+          <p>Sí. Agrega los productos y cantidades al carrito y envía toda tu selección por WhatsApp en un solo mensaje.</p>
         </details>
       </div>
     </section>
@@ -259,6 +266,32 @@
       dependen de la normativa aplicable y de la evaluación profesional cuando corresponda.
     </p>
   </footer>
+
+  <div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-labelledby="cartTitle">
+    <div class="cart-header">
+      <div>
+        <p class="cart-kicker">TK ELITE LAB</p>
+        <h2 id="cartTitle">TU CARRITO</h2>
+      </div>
+      <button class="cart-close" id="closeCart" type="button" aria-label="Cerrar carrito">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total estimado</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+      <p class="cart-note">La disponibilidad y los requisitos aplicables se confirman por WhatsApp.</p>
+      <div class="cart-footer-actions">
+        <button class="cart-clear" id="clearCart" type="button">VACIAR CARRITO</button>
+        <button class="cart-whatsapp" id="sendCartWhatsApp" type="button" disabled>ENVIAR SELECCIÓN POR WHATSAPP</button>
+      </div>
+    </div>
+  </aside>
 
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -299,7 +332,7 @@
               </div>
             </div>
 
-            <button class="modal-cta" id="modalCta" type="button" disabled>CONSULTAR DISPONIBILIDAD</button>
+            <button class="modal-cta" id="modalCta" type="button" disabled>AGREGAR AL CARRITO</button>
           </div>
 
           <div class="modal-notice" id="modalNotice">

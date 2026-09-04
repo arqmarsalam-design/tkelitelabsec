@@ -280,6 +280,19 @@ let searchTerm = "";
 let currentProductId = null;
 let lastModalTrigger = null;
 const WHATSAPP_NUMBER = "593993046766";
+const CART_STORAGE_KEY = "tkEliteLabCart";
+
+let cart = {};
+try {
+  const savedCart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || "{}");
+  cart = Object.fromEntries(
+    Object.entries(savedCart).filter(([productId, quantity]) =>
+      getProduct(productId) && Number.isFinite(Number(quantity)) && Number(quantity) > 0
+    ).map(([productId, quantity]) => [productId, Math.min(99, Math.floor(Number(quantity)))])
+  );
+} catch (error) {
+  cart = {};
+}
 
 // =========================================================
 // ELEMENTOS
@@ -310,6 +323,16 @@ const modalCta = document.getElementById("modalCta");
 const modalRestriction = document.getElementById("modalRestriction");
 
 const toast = document.getElementById("toast");
+
+const openCartButton = document.getElementById("openCart");
+const cartCount = document.getElementById("cartCount");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartDrawer = document.getElementById("cartDrawer");
+const closeCartButton = document.getElementById("closeCart");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const clearCartButton = document.getElementById("clearCart");
+const sendCartWhatsApp = document.getElementById("sendCartWhatsApp");
 
 // =========================================================
 // HELPERS
@@ -360,8 +383,8 @@ function priceTemplate(product, context = "card") {
   `;
 }
 
-function ctaText() {
-  return "CONSULTAR DISPONIBILIDAD";
+function ctaText(product) {
+  return product && product.directPurchase ? "AGREGAR AL CARRITO" : "AGREGAR A CONSULTA";
 }
 
 function badgeText(product) {
@@ -394,7 +417,7 @@ function updateQuantity(productId, delta) {
     cardValue.textContent = quantities[productId];
   }
 
-  const cardCta = document.querySelector(`[data-request-product="${productId}"]`);
+  const cardCta = document.querySelector(`[data-add-cart="${productId}"]`);
   if (cardCta) {
     cardCta.disabled = quantities[productId] === 0;
   }
@@ -461,7 +484,7 @@ function productCardTemplate(product) {
         <button
           class="product-cta"
           type="button"
-          data-request-product="${product.id}"
+          data-add-cart="${product.id}"
           ${quantities[product.id] === 0 ? "disabled" : ""}
         >
           ${ctaText(product)}
@@ -544,9 +567,9 @@ productsGrid.addEventListener("click", event => {
     return;
   }
 
-  const requestButton = event.target.closest("[data-request-product]");
-  if (requestButton) {
-    prepareRequest(requestButton.dataset.requestProduct);
+  const addButton = event.target.closest("[data-add-cart]");
+  if (addButton) {
+    addSelectedQuantityToCart(addButton.dataset.addCart);
   }
 });
 
@@ -660,38 +683,208 @@ document.querySelector("[data-modal-quantity]").addEventListener("click", event 
 
 modalCta.addEventListener("click", () => {
   if (!currentProductId) return;
-  const id = currentProductId;
-  closeProductModal();
-  prepareRequest(id);
+  addSelectedQuantityToCart(currentProductId);
 });
 
 // =========================================================
-// CONSULTA POR WHATSAPP
+// CARRITO / SELECCIÓN MÚLTIPLE
 // =========================================================
 
-function prepareRequest(productId) {
+function saveCart() {
+  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+}
+
+function cartUnitCount() {
+  return Object.values(cart).reduce((sum, quantity) => sum + Number(quantity || 0), 0);
+}
+
+function cartEstimatedTotal() {
+  return Object.entries(cart).reduce((sum, [productId, quantity]) => {
+    const product = getProduct(productId);
+    if (!product) return sum;
+    return sum + discountedPrice(product) * Number(quantity || 0);
+  }, 0);
+}
+
+function addSelectedQuantityToCart(productId) {
   const product = getProduct(productId);
   if (!product) return;
 
   const quantity = quantities[productId] ?? 0;
-
   if (quantity < 1) {
     showToast("Selecciona al menos 1 unidad.");
     return;
   }
 
-  const unitText = quantity === 1 ? "unidad" : "unidades";
-  const message =
-    `Hola, quisiera consultar disponibilidad de ${product.title} (${product.presentation}).\n` +
-    `Cantidad: ${quantity} ${unitText}.`;
+  cart[productId] = Math.min(99, Number(cart[productId] || 0) + quantity);
+  quantities[productId] = 0;
 
-  // Usamos el endpoint oficial de WhatsApp y navegamos en la misma pestaña.
-  // Esto evita que Firefox u otros navegadores bloqueen la apertura como popup.
+  const cardValue = document.querySelector(`[data-quantity-value="${productId}"]`);
+  if (cardValue) cardValue.textContent = "0";
+
+  const cardCta = document.querySelector(`[data-add-cart="${productId}"]`);
+  if (cardCta) cardCta.disabled = true;
+
+  if (currentProductId === productId) {
+    modalQuantityValue.textContent = "0";
+    modalCta.disabled = true;
+  }
+
+  saveCart();
+  renderCart();
+  showToast(`${product.title} agregado al carrito.`);
+}
+
+function updateCartItem(productId, delta) {
+  if (!cart[productId]) return;
+
+  const next = Number(cart[productId]) + delta;
+  if (next <= 0) {
+    delete cart[productId];
+  } else {
+    cart[productId] = Math.min(99, next);
+  }
+
+  saveCart();
+  renderCart();
+}
+
+function removeCartItem(productId) {
+  delete cart[productId];
+  saveCart();
+  renderCart();
+}
+
+function cartItemTemplate(product, quantity) {
+  const unitPrice = discountedPrice(product);
+  const subtotal = unitPrice * quantity;
+
+  return `
+    <article class="cart-item" data-cart-item="${product.id}">
+      <img src="${product.image}" alt="${product.title}" loading="lazy">
+      <div class="cart-item-main">
+        <p class="cart-item-category">${product.categoryLabel}</p>
+        <h3>${product.title}</h3>
+        <p class="cart-item-presentation">${product.presentation}</p>
+        <div class="cart-item-price">
+          <span>${formatPrice(unitPrice)} c/u</span>
+          <strong>${formatPrice(subtotal)}</strong>
+        </div>
+        <div class="cart-item-controls">
+          <div class="quantity-control cart-quantity" aria-label="Cantidad de ${product.title} en el carrito">
+            <button type="button" data-cart-action="decrease" data-cart-product="${product.id}" aria-label="Disminuir cantidad">−</button>
+            <span>${quantity}</span>
+            <button type="button" data-cart-action="increase" data-cart-product="${product.id}" aria-label="Aumentar cantidad">+</button>
+          </div>
+          <button class="cart-remove" type="button" data-cart-action="remove" data-cart-product="${product.id}">ELIMINAR</button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderCart() {
+  const entries = Object.entries(cart)
+    .map(([productId, quantity]) => [getProduct(productId), Number(quantity)])
+    .filter(([product, quantity]) => product && quantity > 0);
+
+  if (!entries.length) {
+    cartItems.innerHTML = `
+      <div class="cart-empty">
+        <span>0 PRODUCTOS</span>
+        <h3>Tu carrito está vacío.</h3>
+        <p>Selecciona cantidades en el catálogo y agrega los productos que quieras consultar.</p>
+      </div>
+    `;
+  } else {
+    cartItems.innerHTML = entries
+      .map(([product, quantity]) => cartItemTemplate(product, quantity))
+      .join("");
+  }
+
+  const unitCount = cartUnitCount();
+  cartCount.textContent = unitCount;
+  cartCount.classList.toggle("has-items", unitCount > 0);
+  cartTotal.textContent = formatPrice(cartEstimatedTotal());
+  sendCartWhatsApp.disabled = unitCount === 0;
+  clearCartButton.disabled = unitCount === 0;
+}
+
+function openCart() {
+  cartDrawer.classList.add("active");
+  cartOverlay.classList.add("active");
+  cartDrawer.setAttribute("aria-hidden", "false");
+  cartOverlay.setAttribute("aria-hidden", "false");
+  document.body.classList.add("cart-open");
+  window.setTimeout(() => closeCartButton.focus(), 20);
+}
+
+function closeCart() {
+  cartDrawer.classList.remove("active");
+  cartOverlay.classList.remove("active");
+  cartDrawer.setAttribute("aria-hidden", "true");
+  cartOverlay.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("cart-open");
+}
+
+function sendCartToWhatsApp() {
+  const entries = Object.entries(cart)
+    .map(([productId, quantity]) => [getProduct(productId), Number(quantity)])
+    .filter(([product, quantity]) => product && quantity > 0);
+
+  if (!entries.length) {
+    showToast("Tu carrito está vacío.");
+    return;
+  }
+
+  const lines = entries.map(([product, quantity]) => {
+    const subtotal = discountedPrice(product) * quantity;
+    return `• ${quantity} × ${product.title} (${product.presentation}) — ${formatPrice(subtotal)}`;
+  });
+
+  const message =
+    `Hola, quisiera consultar disponibilidad de esta selección de TK Elite Lab:\n\n` +
+    `${lines.join("\n")}\n\n` +
+    `Total estimado: ${formatPrice(cartEstimatedTotal())}\n\n` +
+    `Por favor, confírmame disponibilidad y cualquier requisito aplicable.`;
+
   const url =
     `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
 
   window.location.href = url;
 }
+
+openCartButton.addEventListener("click", openCart);
+closeCartButton.addEventListener("click", closeCart);
+cartOverlay.addEventListener("click", closeCart);
+
+cartItems.addEventListener("click", event => {
+  const button = event.target.closest("[data-cart-action]");
+  if (!button) return;
+
+  const productId = button.dataset.cartProduct;
+  const action = button.dataset.cartAction;
+
+  if (action === "increase") updateCartItem(productId, 1);
+  if (action === "decrease") updateCartItem(productId, -1);
+  if (action === "remove") removeCartItem(productId);
+});
+
+clearCartButton.addEventListener("click", () => {
+  if (!cartUnitCount()) return;
+  cart = {};
+  saveCart();
+  renderCart();
+  showToast("Carrito vaciado.");
+});
+
+sendCartWhatsApp.addEventListener("click", sendCartToWhatsApp);
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && cartDrawer.classList.contains("active")) {
+    closeCart();
+  }
+});
 
 // =========================================================
 // MENÚ MÓVIL
@@ -721,3 +914,4 @@ mainNav.addEventListener("click", event => {
 // =========================================================
 
 renderProducts();
+renderCart();
