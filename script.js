@@ -986,6 +986,8 @@ function resetCartAfterWhatsApp() {
   closeCart();
 }
 
+const WHATSAPP_SENT_FLAG = "tk_elite_whatsapp_sent";
+
 function sendCartToWhatsApp(event) {
   if (event) event.preventDefault();
 
@@ -997,13 +999,45 @@ function sendCartToWhatsApp(event) {
   // Guardamos la URL antes de limpiar el carrito para conservar el mensaje completo.
   const whatsappUrl = buildCartWhatsAppUrl();
 
-  // Reiniciamos la selección antes de salir de la página. Así, al volver desde
-  // WhatsApp (incluso usando el botón Atrás), el catálogo ya aparece limpio.
+  // Marcamos que esta selección ya fue enviada. Algunos navegadores restauran la
+  // página desde memoria al volver de WhatsApp; este indicador nos permite forzar
+  // una limpieza visual también al regresar.
+  try {
+    sessionStorage.setItem(WHATSAPP_SENT_FLAG, "1");
+  } catch (error) {
+    console.warn("No se pudo guardar el estado temporal de WhatsApp.", error);
+  }
+
+  // Limpiamos inmediatamente antes de salir.
   resetCartAfterWhatsApp();
 
   // Navegación directa a wa.me: funciona mejor en móvil y evita bloqueadores de pop-ups.
   window.location.href = whatsappUrl;
 }
+
+function ensureCleanCartAfterWhatsApp() {
+  let wasSent = false;
+
+  try {
+    wasSent = sessionStorage.getItem(WHATSAPP_SENT_FLAG) === "1";
+  } catch (error) {
+    console.warn("No se pudo leer el estado temporal de WhatsApp.", error);
+  }
+
+  if (!wasSent) return;
+
+  resetCartAfterWhatsApp();
+
+  try {
+    sessionStorage.removeItem(WHATSAPP_SENT_FLAG);
+  } catch (error) {
+    console.warn("No se pudo borrar el estado temporal de WhatsApp.", error);
+  }
+}
+
+// Safari, Firefox y Chrome pueden devolver una página desde la memoria (bfcache)
+// sin recargar el JavaScript. pageshow garantiza que la selección vuelva a cero.
+window.addEventListener("pageshow", ensureCleanCartAfterWhatsApp);
 
 openCartButton.addEventListener("click", openCart);
 closeCartButton.addEventListener("click", closeCart);
