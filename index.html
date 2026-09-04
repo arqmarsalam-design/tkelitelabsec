@@ -1,18 +1,318 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TK Elite Lab</title>
-</head><link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TK Elite Lab: catálogo informativo de suplementos, productos especializados y accesorios.">
+  <meta name="theme-color" content="#090b0f">
+  <title>TK Elite Lab | Science · Performance · Evolution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
+  <div class="promo-bar">
+    <span>TK ELITE LAB</span>
+    <strong>CIENCIA · CALIDAD · INFORMACIÓN CLARA · ATENCIÓN DIRECTA</strong>
+    <a href="#productos">VER CATÁLOGO</a>
+  </div>
 
-    <h1>TK Elite Lab</h1>
+  <header class="header">
+    <a class="logo" href="#inicio" aria-label="Ir al inicio">
+      TK <span>ELITE</span> LAB
+    </a>
 
-    <p>Bienvenido a nuestra página web.</p>
-<script src="script.js"></script>
+    <nav class="nav" id="mainNav" aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#categorias">Categorías</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+      ☰
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-glow hero-glow-one"></div>
+      <div class="hero-glow hero-glow-two"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">TK ELITE LAB</p>
+        <h1>SCIENCE.<br>PERFORMANCE.<br><span>EVOLUTION.</span></h1>
+        <p class="hero-description">
+          Explora una selección especializada de productos con una experiencia visual
+          diseñada para entender primero y decidir después.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#productos">EXPLORAR CATÁLOGO</a>
+          <a class="btn btn-ghost" href="#nosotros">CONOCER MÁS</a>
+        </div>
+
+        <div class="hero-metrics" aria-label="Resumen del catálogo">
+          <div><strong>14</strong><span>productos</span></div>
+          <div><strong>4</strong><span>categorías</span></div>
+          <div><strong>INFO</strong><span>clara y directa</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card" aria-hidden="true">
+        <div class="scanner"></div>
+        <div class="hero-card-orbit orbit-one"></div>
+        <div class="hero-card-orbit orbit-two"></div>
+        <div class="hero-card-copy">
+          <p>TK ELITE LAB</p>
+          <h2>PERFORMANCE<br>COLLECTION</h2>
+          <span>Explore the science</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro">
+      <p>DESIGNED FOR THE CURIOUS</p>
+      <h2>No solo veas un producto.<br><span>Entiende qué estás explorando.</span></h2>
+    </section>
+
+    <section class="catalog-section" id="productos">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CATÁLOGO TK</p>
+          <h2>PRODUCTOS</h2>
+        </div>
+        <p>
+          Descubre cada producto, revisa sus características y selecciona la cantidad
+          que deseas consultar en segundos.
+        </p>
+      </div>
+
+      <div class="catalog-toolbar">
+        <div class="filters" role="group" aria-label="Filtrar productos">
+          <button class="filter active" type="button" data-filter="all">TODOS</button>
+          <button class="filter" type="button" data-filter="supplement">SUPLEMENTOS</button>
+          <button class="filter" type="button" data-filter="research">RESEARCH</button>
+          <button class="filter" type="button" data-filter="pharma">FARMACÉUTICOS</button>
+          <button class="filter" type="button" data-filter="accessory">ACCESORIOS</button>
+        </div>
+
+        <label class="search-box">
+          <span class="sr-only">Buscar producto</span>
+          <input id="productSearch" type="search" placeholder="Buscar producto..." autocomplete="off">
+          <span aria-hidden="true">⌕</span>
+        </label>
+      </div>
+
+      <div class="catalog-meta">
+        <span id="resultCount">14 productos</span>
+        <button id="clearFilters" class="link-button" type="button">RESTABLECER</button>
+      </div>
+
+      <div class="products-grid" id="productsGrid" aria-live="polite"></div>
+
+      <noscript>
+        <p class="noscript-message">Activa JavaScript para visualizar el catálogo interactivo.</p>
+      </noscript>
+    </section>
+
+    <section class="categories-section" id="categorias">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">EXPLORA</p>
+          <h2>CATEGORÍAS</h2>
+        </div>
+        <p>Una estructura clara para encontrar rápidamente el tipo de producto que buscas.</p>
+      </div>
+
+      <div class="category-grid">
+        <button class="category-card category-jump" data-target-filter="supplement" type="button">
+          <span class="category-index">01</span>
+          <span class="category-kicker">4 productos</span>
+          <h3>SUPLEMENTOS</h3>
+          <p>Fórmulas de nutrición deportiva y complementación.</p>
+          <span class="category-arrow">→</span>
+        </button>
+
+        <button class="category-card category-jump" data-target-filter="research" type="button">
+          <span class="category-index">02</span>
+          <span class="category-kicker">7 productos</span>
+          <h3>RESEARCH</h3>
+          <p>Compuestos y péptidos con ficha técnica y datos relevantes.</p>
+          <span class="category-arrow">→</span>
+        </button>
+
+        <button class="category-card category-jump" data-target-filter="pharma" type="button">
+          <span class="category-index">03</span>
+          <span class="category-kicker">2 productos</span>
+          <h3>FARMACÉUTICOS</h3>
+          <p>Productos de uso farmacéutico con información técnica y presentación detallada.</p>
+          <span class="category-arrow">→</span>
+        </button>
+
+        <button class="category-card category-jump" data-target-filter="accessory" type="button">
+          <span class="category-index">04</span>
+          <span class="category-kicker">1 producto</span>
+          <h3>ACCESORIOS</h3>
+          <p>Insumos complementarios del catálogo.</p>
+          <span class="category-arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="about-section" id="nosotros">
+      <div class="about-copy">
+        <p class="eyebrow">NUESTRA ESENCIA</p>
+        <h2>CIENCIA.<br>CALIDAD.<br><span>EVOLUCIÓN.</span></h2>
+        <p>
+          Seleccionamos y presentamos cada producto con foco en composición, concentración,
+          formato y contexto técnico, para que cada elección parta de información clara y responsable.
+        </p>
+      </div>
+
+      <div class="about-points">
+        <article>
+          <strong>01</strong>
+          <h3>Misión</h3>
+          <p>Acercar productos especializados con una experiencia clara, ágil y basada en información.</p>
+        </article>
+        <article>
+          <strong>02</strong>
+          <h3>Visión</h3>
+          <p>Ser una referencia en confianza, selección y conocimiento aplicado al rendimiento.</p>
+        </article>
+        <article>
+          <strong>03</strong>
+          <h3>Enfoque científico</h3>
+          <p>Destacar composición, concentración, presentación y características relevantes de cada fórmula.</p>
+        </article>
+        <article>
+          <strong>04</strong>
+          <h3>Experiencia</h3>
+          <p>Facilitar la comparación, la consulta y una elección informada.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PREGUNTAS FRECUENTES</p>
+          <h2>FAQ</h2>
+        </div>
+        <p>Respuestas claras para resolver dudas antes de tu compra.</p>
+      </div>
+
+      <div class="faq-list">
+        <details>
+          <summary>¿Cómo consulto la disponibilidad de un producto?</summary>
+          <p>Selecciona una cantidad mayor a 0 y pulsa “Consultar disponibilidad”. WhatsApp se abrirá con el producto, la presentación y la cantidad elegida.</p>
+        </details>
+        <details>
+          <summary>¿Puedo elegir la cantidad antes de abrir la ficha?</summary>
+          <p>Sí. Puedes ajustar las unidades directamente desde la tarjeta o desde la ficha del producto antes de realizar tu consulta.</p>
+        </details>
+        <details>
+          <summary>¿Dónde encuentro la información de cada producto?</summary>
+          <p>En “Ver información” encontrarás su descripción, información general, características, presentación y conservación.</p>
+        </details>
+        <details>
+          <summary>¿Puedo consultar varios productos?</summary>
+          <p>Sí. Nuestro equipo puede orientarte sobre disponibilidad, presentaciones y el proceso de compra de los productos que te interesen.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
+      <div class="contact-copy">
+        <p class="eyebrow">ATENCIÓN DIRECTA</p>
+        <h2>¿TIENES DUDAS?<br><span>HABLEMOS.</span></h2>
+        <p>
+          Consulta disponibilidad, presentaciones o características de nuestros productos.
+          Estamos para ayudarte a encontrar la opción que buscas.
+        </p>
+      </div>
+
+      <div class="request-card contact-card">
+        <span class="request-label">WHATSAPP</span>
+        <h3>Atención rápida y personalizada.</h3>
+        <p>Escríbenos directamente para consultar productos, presentaciones y disponibilidad.</p>
+        <div class="request-actions">
+          <a class="btn btn-primary" id="generalWhatsApp" href="https://api.whatsapp.com/send?phone=593993046766&amp;text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20los%20productos%20de%20TK%20Elite%20Lab." target="_blank" rel="noopener noreferrer">ESCRIBIR POR WHATSAPP</a>
+          <a class="btn btn-ghost" href="#productos">VOLVER AL CATÁLOGO</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <div class="logo">TK <span>ELITE</span> LAB</div>
+      <p>Science · Performance · Evolution</p>
+    </div>
+    <p>© 2026 TK Elite Lab</p>
+    <p class="footer-disclaimer">
+      Contenido informativo. La disponibilidad, comercialización y uso de determinados productos
+      dependen de la normativa aplicable y de la evaluación profesional cuando corresponda.
+    </p>
+  </footer>
+
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeModal" type="button" aria-label="Cerrar ficha">×</button>
+
+      <div class="modal-layout">
+        <div class="modal-media">
+          <img id="modalProductImage" src="" alt="">
+          <span id="modalBadge" class="modal-badge"></span>
+        </div>
+
+        <div class="modal-main">
+          <p class="modal-category" id="modalCategory"></p>
+          <h2 id="modalTitle"></h2>
+          <p class="modal-hook" id="modalHook"></p>
+          <div class="modal-price" id="modalPrice" aria-label="Precio del producto"></div>
+
+          <div class="modal-tabs" role="tablist" aria-label="Información del producto">
+            <button class="modal-tab active" role="tab" aria-selected="true" type="button" data-tab="whatIs">¿QUÉ ES?</button>
+            <button class="modal-tab" role="tab" aria-selected="false" type="button" data-tab="general">INFORMACIÓN GENERAL</button>
+            <button class="modal-tab" role="tab" aria-selected="false" type="button" data-tab="characteristics">CARACTERÍSTICAS</button>
+            <button class="modal-tab" role="tab" aria-selected="false" type="button" data-tab="presentation">PRESENTACIÓN</button>
+            <button class="modal-tab" role="tab" aria-selected="false" type="button" data-tab="storage">CONSERVACIÓN</button>
+          </div>
+
+          <div class="modal-info-panel">
+            <h3 id="modalInfoTitle">¿Qué es?</h3>
+            <p id="modalInfoContent"></p>
+          </div>
+
+          <div class="modal-bottom-row">
+            <div class="modal-quantity">
+              <span>CANTIDAD</span>
+              <div class="quantity-control" data-modal-quantity>
+                <button type="button" data-quantity-action="decrease" aria-label="Disminuir cantidad">−</button>
+                <span id="modalQuantityValue">0</span>
+                <button type="button" data-quantity-action="increase" aria-label="Aumentar cantidad">+</button>
+              </div>
+            </div>
+
+            <button class="modal-cta" id="modalCta" type="button" disabled>CONSULTAR DISPONIBILIDAD</button>
+          </div>
+
+          <div class="modal-notice" id="modalNotice">
+            <strong>Información importante</strong>
+            <p id="modalRestriction"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
