@@ -2809,3 +2809,41 @@ body.cart-open {
     font-size: 28px;
   }
 }
+
+
+/* =========================================================
+   FIX INTERACCIÓN MÓVIL + WHATSAPP
+   ========================================================= */
+.product-body,
+.card-controls,
+.quantity-control,
+.product-cta,
+.info-button {
+  position: relative;
+  z-index: 3;
+}
+
+.quantity-control button,
+.product-cta,
+.info-button,
+.cart-button,
+.cart-whatsapp {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cart-whatsapp {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cart-whatsapp[aria-disabled="true"] {
+  opacity: .42;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.cart-whatsapp[aria-disabled="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}

@@ -384,7 +384,7 @@ function priceTemplate(product, context = "card") {
 }
 
 function ctaText(product) {
-  return product && product.directPurchase ? "AGREGAR AL CARRITO" : "AGREGAR A CONSULTA";
+  return "AGREGAR AL CARRITO";
 }
 
 function badgeText(product) {
@@ -691,7 +691,12 @@ modalCta.addEventListener("click", () => {
 // =========================================================
 
 function saveCart() {
-  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  } catch (error) {
+    // El carrito sigue funcionando aunque el navegador bloquee almacenamiento local.
+    console.warn("No se pudo guardar el carrito localmente.", error);
+  }
 }
 
 function cartUnitCount() {
@@ -806,8 +811,15 @@ function renderCart() {
   cartCount.textContent = unitCount;
   cartCount.classList.toggle("has-items", unitCount > 0);
   cartTotal.textContent = formatPrice(cartEstimatedTotal());
-  sendCartWhatsApp.disabled = unitCount === 0;
   clearCartButton.disabled = unitCount === 0;
+
+  if (unitCount === 0) {
+    sendCartWhatsApp.setAttribute("aria-disabled", "true");
+    sendCartWhatsApp.setAttribute("href", "#");
+  } else {
+    sendCartWhatsApp.setAttribute("aria-disabled", "false");
+    sendCartWhatsApp.setAttribute("href", buildCartWhatsAppUrl());
+  }
 }
 
 function openCart() {
@@ -827,15 +839,12 @@ function closeCart() {
   document.body.classList.remove("cart-open");
 }
 
-function sendCartToWhatsApp() {
+function buildCartWhatsAppUrl() {
   const entries = Object.entries(cart)
     .map(([productId, quantity]) => [getProduct(productId), Number(quantity)])
     .filter(([product, quantity]) => product && quantity > 0);
 
-  if (!entries.length) {
-    showToast("Tu carrito está vacío.");
-    return;
-  }
+  if (!entries.length) return "#";
 
   const lines = entries.map(([product, quantity]) => {
     const subtotal = discountedPrice(product) * quantity;
@@ -843,15 +852,23 @@ function sendCartToWhatsApp() {
   });
 
   const message =
-    `Hola, quisiera consultar disponibilidad de esta selección de TK Elite Lab:\n\n` +
+    `Hola, quisiera consultar disponibilidad de este pedido de TK Elite Lab:\n\n` +
     `${lines.join("\n")}\n\n` +
     `Total estimado: ${formatPrice(cartEstimatedTotal())}\n\n` +
-    `Por favor, confírmame disponibilidad y cualquier requisito aplicable.`;
+    `Por favor, confírmame disponibilidad para continuar con el pedido.`;
 
-  const url =
-    `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
-  window.location.href = url;
+function sendCartToWhatsApp(event) {
+  if (!cartUnitCount()) {
+    if (event) event.preventDefault();
+    showToast("Tu carrito está vacío.");
+    return;
+  }
+
+  // El href se actualiza desde renderCart para que WhatsApp se abra como enlace real.
+  sendCartWhatsApp.href = buildCartWhatsAppUrl();
 }
 
 openCartButton.addEventListener("click", openCart);
