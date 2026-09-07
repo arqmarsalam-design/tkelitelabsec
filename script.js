@@ -15,13 +15,11 @@ const products = [
     discountPercent: 10,
     generalLabel: "BENEFICIOS",
     hook: "Uno de los suplementos con mayor respaldo científico para fuerza, potencia y rendimiento de alta intensidad.",
-    whatIs: "La creatina monohidrato es un compuesto utilizado ampliamente en nutrición deportiva. Aumenta las reservas musculares de creatina y fosfocreatina, que participan en la regeneración rápida de ATP durante esfuerzos de alta intensidad.",
-    general: "La evidencia respalda su capacidad para mejorar el rendimiento en ejercicios repetidos de alta intensidad y favorecer aumentos de fuerza y masa magra cuando se combina con entrenamiento de resistencia.",
-    characteristics: "Creatina monohidrato · Formato en polvo · Una de las formas de creatina con mayor respaldo científico en nutrición deportiva.",
+    whatIs: "La creatina monohidrato es uno de los compuestos más estudiados dentro de la nutrición deportiva. Se encuentra naturalmente en el organismo y participa en la producción rápida de energía durante esfuerzos de alta intensidad.",
+    general: "Su principal función está relacionada con el aumento de las reservas musculares de fosfocreatina, favoreciendo la regeneración de ATP. Su uso junto con entrenamiento de fuerza se ha asociado con mejoras en rendimiento, potencia, fuerza y desarrollo de masa muscular.",
+    characteristics: "Creatina monohidrato · Amplio respaldo científico · Enfocada en rendimiento y entrenamiento de alta intensidad · Fácil integración dentro de programas de nutrición deportiva.",
     presentation: "300 g.",
-    storage: "Mantener el envase bien cerrado, en un lugar fresco y seco, protegido de humedad, calor excesivo y luz directa.",
-    restriction: "Suplemento nutricional. Revisa siempre la etiqueta, ingredientes, advertencias y compatibilidad con tus necesidades."
-  },
+    storage: "Mantener bien cerrado en un lugar fresco y seco, protegido de humedad, calor excesivo y luz directa.",},
   {
     id: "cardarine",
     title: "Cardarine TK / GW-501516",
@@ -32,14 +30,12 @@ const products = [
     directPurchase: false,
     price: 60,
     discountPercent: 0,
-    hook: "Compuesto experimental investigado por su interacción con vías relacionadas con metabolismo energético.",
-    whatIs: "GW-501516, conocido como Cardarine, es un compuesto experimental que actúa sobre el receptor PPAR-δ, relacionado con procesos de metabolismo energético y oxidación de ácidos grasos.",
-    general: "Fue investigado por su posible influencia sobre el metabolismo lipídico y la utilización de energía, pero su desarrollo clínico fue abandonado y no es un medicamento aprobado para uso terapéutico.",
-    characteristics: "Compuesto de investigación de tipo agonista PPAR-δ. No es un SARM, aunque frecuentemente se comercializa dentro del mismo mercado.",
+    hook: "Compuesto de investigación estudiado por su interacción con vías relacionadas con metabolismo energético.",
+    whatIs: "GW-501516, conocido como Cardarine, es un compuesto de investigación que actúa sobre el receptor PPAR-δ, una vía relacionada con el metabolismo energético y la utilización de ácidos grasos.",
+    general: "Su investigación se ha centrado principalmente en procesos vinculados con metabolismo lipídico, utilización de energía, actividad mitocondrial y adaptación metabólica.",
+    characteristics: "Compuesto de investigación · Agonista del receptor PPAR-δ · Estudiado dentro del área de metabolismo energético · Su mecanismo es diferente al de los SARM.",
     presentation: "30 cápsulas.",
-    storage: "Mantener en lugar fresco, seco y protegido de la luz, siguiendo la información técnica del fabricante.",
-    restriction: "Producto de investigación. Consulta disponibilidad, documentación y requisitos aplicables antes de adquirirlo."
-  },
+    storage: "Mantener en un lugar fresco, seco y protegido de la luz directa.",},
   {
     id: "lipodren",
     title: "Lipodren",
@@ -50,14 +46,12 @@ const products = [
     directPurchase: false,
     price: 80,
     discountPercent: 0,
-    hook: "Formulación líquida orientada al segmento de definición y composición corporal.",
-    whatIs: "Lipodren es una formulación orientada al segmento de definición y composición corporal, presentada en formato líquido de 50 ml.",
-    general: "Sus propiedades dependen directamente de los ingredientes activos y sus concentraciones. Para describir científicamente su mecanismo deben revisarse la composición completa y las cantidades declaradas por el fabricante.",
-    characteristics: "Presentación líquida · 50 ml · La valoración del producto debe basarse en su etiqueta completa y ficha técnica.",
+    hook: "Formulación especializada orientada al segmento de composición corporal, definición y rendimiento.",
+    whatIs: "Lipodren es una formulación especializada orientada al segmento de composición corporal, definición y rendimiento.",
+    general: "Su formulación ha sido desarrollada dentro del área de apoyo metabólico y composición corporal. Las características específicas del producto dependen de la combinación y concentración de sus componentes activos.",
+    characteristics: "Fórmula especializada · Presentación líquida · Enfoque asociado a composición corporal y definición · Fórmula concentrada de 50 ml.",
     presentation: "50 ml.",
-    storage: "Conservar según las indicaciones del fabricante y proteger de luz y calor excesivos.",
-    restriction: "Consulta disponibilidad y revisa la composición completa, el etiquetado y los requisitos aplicables."
-  },
+    storage: "Mantener protegido de la luz y del calor excesivo, siguiendo las condiciones indicadas en el envase.",},
   {
     id: "bpc157",
     title: "BPC-157 TK",
@@ -68,14 +62,12 @@ const products = [
     directPurchase: false,
     price: 120,
     discountPercent: 0,
-    hook: "Péptido experimental de interés en investigación preclínica sobre reparación tisular y señalización biológica.",
-    whatIs: "BPC-157 es un péptido sintético investigado principalmente en modelos preclínicos relacionados con reparación tisular, inflamación y sistema gastrointestinal.",
-    general: "Gran parte de las afirmaciones difundidas sobre BPC-157 proceden de estudios celulares y animales. La evidencia clínica en humanos continúa siendo limitada y no permite presentar sus efectos como beneficios terapéuticos demostrados.",
-    characteristics: "Péptido de investigación · 5 mg · Su perfil clínico, eficacia y seguridad continúan siendo objeto de estudio.",
+    hook: "Péptido de investigación de interés en procesos relacionados con reparación tisular y señalización biológica.",
+    whatIs: "BPC-157 es un péptido sintético estudiado principalmente dentro de áreas relacionadas con reparación tisular, respuesta inflamatoria y mecanismos de recuperación.",
+    general: "La investigación experimental sobre BPC-157 ha explorado su interacción con diferentes procesos celulares relacionados con tejidos, sistema gastrointestinal, vasos sanguíneos y mecanismos de reparación.",
+    characteristics: "Péptido de investigación · Estudiado principalmente en modelos experimentales · Interés científico en procesos de recuperación y reparación tisular · Formulación especializada.",
     presentation: "5 mg.",
-    storage: "Debe conservarse según las especificaciones del fabricante y de la presentación concreta del producto.",
-    restriction: "Producto de investigación. Consulta disponibilidad, documentación y requisitos aplicables."
-  },
+    storage: "Mantener de acuerdo con las condiciones específicas del fabricante. La conservación puede variar según el estado y formulación del producto.",},
   {
     id: "amino",
     title: "Grow Factor Amino TK",
@@ -86,14 +78,12 @@ const products = [
     directPurchase: false,
     price: 70,
     discountPercent: 0,
-    hook: "Formulación especializada de aminoácidos cuya valoración depende de su composición y concentraciones declaradas.",
-    whatIs: "Grow Factor Amino TK es una formulación de aminoácidos cuyo perfil depende de la combinación y concentración específica declarada en el producto.",
-    general: "Los aminoácidos cumplen funciones fundamentales en síntesis proteica, metabolismo y recuperación de tejidos, pero los efectos concretos de esta formulación dependen de su composición completa.",
-    characteristics: "Fórmula líquida de aminoácidos · La descripción de efectos específicos requiere verificar ingredientes y concentraciones.",
+    hook: "Formulación especializada basada en aminoácidos, compuestos fundamentales en múltiples procesos fisiológicos.",
+    whatIs: "Grow Factor Amino TK es una formulación especializada basada en aminoácidos, compuestos esenciales dentro de múltiples procesos relacionados con síntesis proteica, metabolismo y recuperación.",
+    general: "Los aminoácidos participan en numerosos procesos fisiológicos y son componentes fundamentales de las proteínas. Las propiedades específicas de Grow Factor Amino TK dependen de los aminoácidos y concentraciones presentes en su formulación.",
+    characteristics: "Fórmula basada en aminoácidos · Presentación líquida · Orientada al segmento de nutrición y rendimiento · Fórmula concentrada de 100 ml.",
     presentation: "100 ml.",
-    storage: "Conservar según la información técnica y las indicaciones de la etiqueta del fabricante.",
-    restriction: "Consulta disponibilidad y documentación técnica antes de adquirirlo."
-  },
+    storage: "Mantener de acuerdo con las indicaciones especificadas en el envase.",},
   {
     id: "berberine",
     title: "Berberine TK",
@@ -105,14 +95,12 @@ const products = [
     price: 30,
     discountPercent: 0,
     generalLabel: "BENEFICIOS",
-    hook: "Alcaloide de origen vegetal ampliamente estudiado en el contexto del metabolismo de glucosa y lípidos.",
-    whatIs: "La berberina es un alcaloide de origen vegetal presente en diversas especies del género Berberis y otras plantas.",
-    general: "Ensayos clínicos y revisiones han descrito mejoras modestas en algunos marcadores metabólicos en determinadas poblaciones. No sustituye tratamientos médicos y puede interactuar con medicamentos.",
-    characteristics: "Berberine TK · 250 mg según etiqueta · Compuesto vegetal estudiado en metabolismo de glucosa y lípidos.",
-    presentation: "250 mg · 30 cápsulas.",
-    storage: "Mantener el frasco cerrado, protegido de humedad, luz directa y calor excesivo.",
-    restriction: "Suplemento. Verifica ingredientes, concentración, advertencias e interacciones antes de utilizarlo."
-  },
+    hook: "Compuesto bioactivo de origen vegetal ampliamente estudiado en el contexto del metabolismo.",
+    whatIs: "La berberina es un compuesto bioactivo de origen vegetal perteneciente al grupo de los alcaloides y presente naturalmente en diferentes especies botánicas.",
+    general: "La berberina ha sido ampliamente estudiada por su relación con diferentes procesos metabólicos, incluyendo metabolismo de glucosa, lípidos y señalización energética celular.",
+    characteristics: "Compuesto de origen vegetal · Amplia investigación en metabolismo · 250 mg según presentación · Formato en cápsulas.",
+    presentation: "30 cápsulas de 250 mg.",
+    storage: "Mantener en un lugar fresco, seco y protegido de humedad y luz directa.",},
   {
     id: "chkcu",
     title: "GHK-Cu TK",
@@ -123,14 +111,12 @@ const products = [
     directPurchase: false,
     price: 140,
     discountPercent: 0,
-    hook: "Complejo peptídico con cobre estudiado en investigación regenerativa y dermatológica.",
-    whatIs: "GHK-Cu es un complejo formado por el tripéptido GHK —glicil-L-histidil-L-lisina— y cobre.",
-    general: "La investigación preclínica ha estudiado su participación en remodelación de matriz extracelular, síntesis de colágeno, procesos de reparación y señalización celular. La evidencia clínica humana de alta calidad sigue siendo limitada.",
-    characteristics: "Péptido unido a cobre de interés en investigación regenerativa y dermatológica.",
+    hook: "Complejo peptídico con cobre estudiado en investigación dermatológica y regenerativa.",
+    whatIs: "GHK-Cu es un complejo formado por el tripéptido GHK —glicil-L-histidil-L-lisina— unido a cobre.",
+    general: "Ha sido objeto de investigación por su participación en diferentes procesos celulares relacionados con matriz extracelular, colágeno, señalización celular y mecanismos de reparación y remodelación de tejidos.",
+    characteristics: "Complejo peptídico unido a cobre · Área de interés en investigación dermatológica y regenerativa · Relacionado con diferentes procesos de señalización celular · Formulación especializada.",
     presentation: "100 mg.",
-    storage: "Seguir exclusivamente las condiciones indicadas en la documentación técnica del fabricante.",
-    restriction: "Producto de investigación. Consulta disponibilidad, composición, documentación y requisitos aplicables."
-  },
+    storage: "Mantener conforme a las condiciones específicas indicadas por el fabricante.",},
   {
     id: "clen",
     title: "CLEN TK",
@@ -141,14 +127,12 @@ const products = [
     directPurchase: false,
     price: 45,
     discountPercent: 0,
-    hook: "Compuesto farmacológicamente activo cuya información requiere especial cautela y contexto profesional.",
-    whatIs: "El clenbuterol es un agonista beta-2 adrenérgico con efectos broncodilatadores y estimulantes.",
-    general: "Puede aumentar la actividad simpática y producir efectos cardiovasculares y neurológicos relevantes. No debe presentarse como un suplemento deportivo ni como un producto inocuo para definición corporal.",
-    characteristics: "CLEN TK · Clenbuterol 40 mcg según etiqueta · Compuesto de acción beta-adrenérgica.",
+    hook: "Compuesto farmacológicamente activo con acción sobre vías beta-adrenérgicas.",
+    whatIs: "El clenbuterol es un compuesto farmacológicamente activo perteneciente al grupo de los agonistas beta-2 adrenérgicos.",
+    general: "Su actividad sobre los receptores beta-adrenérgicos está relacionada con diferentes respuestas fisiológicas, incluyendo broncodilatación, estimulación del sistema simpático y modificaciones en el gasto energético.",
+    characteristics: "Agonista beta-2 adrenérgico · Compuesto farmacológicamente activo · Acción relacionada con vías del sistema simpático · Presentación en cápsulas.",
     presentation: "40 mcg · 50 cápsulas.",
-    storage: "Conservar conforme a la información del fabricante y mantener fuera del alcance de niños.",
-    restriction: "Producto sujeto a regulación. Consulta disponibilidad y requisitos aplicables; puede requerir evaluación o prescripción profesional."
-  },
+    storage: "Mantener protegido de humedad, luz directa y temperaturas extremas.",},
   {
     id: "clomid",
     title: "Clomid 50 TK",
@@ -159,14 +143,12 @@ const products = [
     directPurchase: false,
     price: 20,
     discountPercent: 0,
-    hook: "Medicamento de acción hormonal que requiere contexto clínico y supervisión profesional.",
-    whatIs: "El citrato de clomifeno es un modulador selectivo de los receptores de estrógeno —SERM— utilizado en contextos médicos específicos relacionados con la función reproductiva.",
-    general: "Actúa modificando la retroalimentación estrogénica a nivel hipotalámico, lo que puede alterar la liberación de gonadotropinas. No debe presentarse como suplemento deportivo ni asegurar resultados hormonales universales.",
-    characteristics: "Clomid 50 TK · Clomiphene Citrate 50 mg según etiqueta · Medicamento de acción hormonal.",
+    hook: "Modulador selectivo de receptores de estrógeno con acción relacionada con regulación hormonal.",
+    whatIs: "El citrato de clomifeno es un modulador selectivo de los receptores de estrógeno, conocido como SERM.",
+    general: "Su mecanismo está relacionado con la modulación de la señal estrogénica a nivel del eje hipotálamo-hipófisis, influyendo sobre procesos asociados con la liberación de gonadotropinas.",
+    characteristics: "Modulador selectivo de receptores de estrógeno · Compuesto farmacológicamente activo · Acción relacionada con regulación hormonal · Presentación oral.",
     presentation: "50 mg · 10 tabletas.",
-    storage: "Mantener protegido de humedad, calor y luz, según las especificaciones del producto.",
-    restriction: "Medicamento sujeto a regulación y prescripción donde corresponda. Consulta disponibilidad y requisitos aplicables."
-  },
+    storage: "Mantener en un lugar fresco, seco y protegido de la luz.",},
   {
     id: "mixingwater",
     title: "Mixing Water",
@@ -177,14 +159,12 @@ const products = [
     directPurchase: false,
     price: 30,
     discountPercent: 0,
-    hook: "Insumo de reconstitución cuya compatibilidad depende del producto y de la formulación específica.",
-    whatIs: "Solución destinada a procesos de reconstitución o preparación, de acuerdo con las características indicadas por el fabricante.",
-    general: "La compatibilidad de cualquier diluyente depende del producto que vaya a ser reconstituido. No debe asumirse que una solución es adecuada para cualquier compuesto sin revisar su identificación y ficha técnica.",
-    characteristics: "Presentación líquida para reconstitución · Verificar en la etiqueta si corresponde a agua bacteriostática, estéril u otra formulación.",
+    hook: "Solución especializada para procesos de preparación o reconstitución de productos compatibles.",
+    whatIs: "Mixing Water es una solución diseñada para procesos de preparación o reconstitución de productos compatibles.",
+    general: "Los diluyentes permiten preparar determinadas formulaciones antes de su utilización. Su compatibilidad depende de las características y especificaciones del producto que vaya a ser reconstituido.",
+    characteristics: "Solución líquida · Presentación especializada para reconstitución · Envase de 10 ml · Uso sujeto a compatibilidad con la formulación correspondiente.",
     presentation: "10 ml.",
-    storage: "Seguir las condiciones indicadas en su etiqueta y documentación técnica.",
-    restriction: "Consulta disponibilidad, identificación del diluyente, documentación y requisitos aplicables."
-  },
+    storage: "Mantener bajo las condiciones especificadas en la etiqueta del producto.",},
   {
     id: "nitrotest",
     title: "Nitrotest",
@@ -196,14 +176,12 @@ const products = [
     price: 60,
     discountPercent: 0,
     generalLabel: "BENEFICIOS",
-    hook: "Combinación de citrulina, arginina, zinc y magnesio orientada a nutrición deportiva.",
-    whatIs: "Fórmula de nutrición deportiva que combina aminoácidos relacionados con la producción de óxido nítrico y minerales esenciales.",
-    general: "La citrulina participa indirectamente en la síntesis de óxido nítrico al elevar la disponibilidad de arginina. Zinc y magnesio participan en numerosos procesos enzimáticos y fisiológicos. Los resultados sobre rendimiento dependen de las cantidades reales presentes en la fórmula y del estado nutricional de la persona.",
-    characteristics: "Citrulina · Arginina · Zinc · Magnesio según etiqueta · 60 cápsulas.",
+    hook: "Fórmula de nutrición deportiva que combina citrulina, arginina, zinc y magnesio.",
+    whatIs: "Nitrotest es una fórmula de nutrición deportiva que combina aminoácidos y minerales relacionados con diferentes procesos vinculados al rendimiento físico.",
+    general: "La citrulina y la arginina participan en rutas relacionadas con la producción de óxido nítrico, mientras que el zinc y el magnesio intervienen en numerosos procesos metabólicos y enzimáticos.",
+    characteristics: "Citrulina · Arginina · Zinc · Magnesio · Fórmula orientada a nutrición deportiva.",
     presentation: "60 cápsulas.",
-    storage: "Mantener el envase cerrado en un lugar fresco y seco.",
-    restriction: "Suplemento. Consulta la tabla nutricional completa, cantidades por porción y advertencias antes de utilizarlo."
-  },
+    storage: "Mantener bien cerrado en un lugar fresco, seco y protegido de la humedad.",},
   {
     id: "ipamorelin",
     title: "Ipamorelin TK",
@@ -215,13 +193,11 @@ const products = [
     price: 120,
     discountPercent: 0,
     hook: "Péptido de investigación estudiado por su actividad sobre vías relacionadas con la secreción de hormona de crecimiento.",
-    whatIs: "Ipamorelin es un péptido sintético perteneciente al grupo de secretagogos de hormona de crecimiento y actúa principalmente mediante el receptor de ghrelina/GHSR.",
-    general: "Se ha investigado por su capacidad para estimular la liberación de hormona de crecimiento. Esto no equivale a demostrar beneficios garantizados sobre ganancia muscular, pérdida de grasa, rejuvenecimiento o recuperación en personas sanas.",
-    characteristics: "Péptido de investigación con actividad sobre vías relacionadas con la secreción de hormona de crecimiento.",
+    whatIs: "Ipamorelin es un péptido sintético perteneciente al grupo de secretagogos de hormona de crecimiento.",
+    general: "Su investigación se ha centrado en su interacción con el receptor GHSR y en mecanismos relacionados con la señalización involucrada en la secreción de hormona de crecimiento.",
+    characteristics: "Péptido de investigación · Secretagogo de hormona de crecimiento · Actividad relacionada con el receptor de ghrelina/GHSR · Formulación especializada.",
     presentation: "10 mg.",
-    storage: "La estabilidad depende de la forma del producto y las instrucciones del fabricante. Seguir la ficha técnica correspondiente.",
-    restriction: "Producto de investigación. Consulta disponibilidad, documentación y requisitos aplicables."
-  },
+    storage: "Mantener según las especificaciones indicadas para la formulación correspondiente.",},
   {
     id: "retatrutide",
     title: "Retatrutide TK",
@@ -232,14 +208,12 @@ const products = [
     directPurchase: false,
     price: 350,
     discountPercent: 20,
-    hook: "Molécula investigacional de gran interés actual en investigación metabólica.",
-    whatIs: "Retatrutide es una molécula experimental desarrollada como agonista triple de los receptores GIP, GLP-1 y glucagón.",
-    general: "Ha sido estudiada en ensayos clínicos para obesidad y otras enfermedades metabólicas. La existencia de resultados de investigación no equivale a aprobación para uso general; continúa siendo un fármaco investigacional.",
-    characteristics: "Triple agonista GIP / GLP-1 / glucagón · Compuesto actualmente en investigación clínica.",
+    hook: "Molécula peptídica de gran interés actual en investigación metabólica.",
+    whatIs: "Retatrutide es una molécula peptídica investigada por su actividad simultánea sobre tres receptores relacionados con regulación metabólica: GIP, GLP-1 y glucagón.",
+    general: "Su investigación clínica se ha centrado en procesos relacionados con regulación del apetito, metabolismo energético, glucosa y composición corporal. Su acción triple la diferencia de otras moléculas que actúan sobre una o dos de estas vías.",
+    characteristics: "Triple agonista GIP / GLP-1 / glucagón · Molécula en investigación clínica · Área principal de investigación: metabolismo y composición corporal · Formulación peptídica especializada.",
     presentation: "10 mg.",
-    storage: "Las condiciones deben corresponder a la formulación específica y a las instrucciones técnicas del fabricante.",
-    restriction: "Producto de investigación. Consulta disponibilidad, documentación y requisitos aplicables."
-  },
+    storage: "Mantener de acuerdo con las condiciones especificadas para la formulación correspondiente.",},
   {
     id: "klow",
     title: "KLOW TK",
@@ -250,14 +224,12 @@ const products = [
     directPurchase: false,
     price: 180,
     discountPercent: 0,
-    hook: "Formulación especializada cuya descripción responsable requiere confirmar su composición real.",
-    whatIs: "KLOW TK es una formulación especializada presentada en 80 mg. Su descripción específica debe basarse en los principios activos y concentraciones declaradas por el fabricante.",
-    general: "Para describir correctamente su mecanismo y características es necesario verificar primero la composición exacta del producto y su documentación técnica.",
-    characteristics: "Presentación especializada · 80 mg · Composición específica pendiente de verificación documental.",
+    hook: "Formulación especializada del segmento de productos de investigación TK.",
+    whatIs: "KLOW TK es una formulación especializada desarrollada dentro del segmento de productos de investigación de TK.",
+    general: "Sus características y áreas específicas de interés dependen de la combinación de principios activos y concentraciones presentes en la formulación.",
+    characteristics: "Fórmula especializada · Presentación concentrada · Producto del segmento de investigación TK · 80 mg según presentación.",
     presentation: "80 mg.",
-    storage: "Seguir las instrucciones técnicas del fabricante.",
-    restriction: "Consulta disponibilidad, composición, documentación y requisitos aplicables."
-  }
+    storage: "Mantener siguiendo las condiciones indicadas específicamente en el envase.",}
 ];
 
 const categoryLabels = {
@@ -284,6 +256,13 @@ let currentProductId = null;
 let lastModalTrigger = null;
 const WHATSAPP_NUMBER = "593993046766";
 const CART_STORAGE_KEY = "tkEliteLabCart";
+
+function trackEvent(eventName, params = {}) {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", eventName, params);
+  }
+}
+
 
 let cart = {};
 try {
@@ -331,7 +310,6 @@ const modalInfoContent = document.getElementById("modalInfoContent");
 const modalTabs = [...document.querySelectorAll(".modal-tab")];
 const modalQuantityValue = document.getElementById("modalQuantityValue");
 const modalCta = document.getElementById("modalCta");
-const modalRestriction = document.getElementById("modalRestriction");
 
 const toast = document.getElementById("toast");
 
@@ -701,11 +679,15 @@ function openProductModal(productId, trigger) {
   modalHook.textContent = product.hook;
   modalPrice.innerHTML = priceTemplate(product, "modal");
   modalQuantityValue.textContent = quantities[productId];
+  trackEvent("view_product", {
+    product_id: product.id,
+    product_name: product.title,
+    category: product.categoryLabel,
+    price: discountedPrice(product)
+  });
 
   const generalTab = modalTabs.find(tab => tab.dataset.tab === "general");
   if (generalTab) generalTab.textContent = product.generalLabel || "INFORMACIÓN GENERAL";
-
-  modalRestriction.textContent = product.restriction;
   modalCta.textContent = ctaText(product);
   modalCta.classList.remove("restricted", "added", "update", "remove");
   updateProductActionState(productId);
@@ -851,6 +833,13 @@ function addSelectedQuantityToCart(productId) {
   saveCart();
   renderCart();
   updateProductActionState(productId);
+  trackEvent("add_to_cart", {
+    product_id: product.id,
+    product_name: product.title,
+    quantity: quantity,
+    price: discountedPrice(product),
+    cart_value: cartEstimatedTotal()
+  });
 
   if (existingQuantity > 0) {
     showToast(`${product.title}: carrito actualizado a ${quantity} unidad${quantity === 1 ? "" : "es"}.`);
@@ -882,6 +871,8 @@ function updateCartItem(productId, delta) {
 }
 
 function removeCartItem(productId) {
+  const product = getProduct(productId);
+  const removedQuantity = Number(cart[productId] || 0);
   delete cart[productId];
   quantities[productId] = 0;
 
@@ -892,6 +883,14 @@ function removeCartItem(productId) {
   saveCart();
   renderCart();
   updateProductActionState(productId);
+  if (product && removedQuantity > 0) {
+    trackEvent("remove_from_cart", {
+      product_id: product.id,
+      product_name: product.title,
+      quantity: removedQuantity,
+      price: discountedPrice(product)
+    });
+  }
 }
 
 function cartItemTemplate(product, quantity) {
@@ -963,6 +962,10 @@ function renderCart() {
 }
 
 function openCart() {
+  trackEvent("open_cart", {
+    item_count: cartUnitCount(),
+    cart_value: cartEstimatedTotal()
+  });
   cartDrawer.classList.add("active");
   cartOverlay.classList.add("active");
   cartDrawer.setAttribute("aria-hidden", "false");
@@ -1035,6 +1038,10 @@ function sendCartToWhatsApp(event) {
   }
 
   const whatsappUrl = buildCartWhatsAppUrl();
+  trackEvent("whatsapp_order_click", {
+    item_count: cartUnitCount(),
+    cart_value: cartEstimatedTotal()
+  });
 
   try {
     sessionStorage.setItem("tkEliteLabResetAfterWhatsApp", "1");
@@ -1090,6 +1097,60 @@ document.addEventListener("keydown", event => {
     closeCart();
   }
 });
+
+
+// =========================================================
+// ANALÍTICA DE CONTACTO Y REGISTRO
+// =========================================================
+
+[document.getElementById("generalWhatsApp"), document.getElementById("floatingWhatsApp")].forEach(link => {
+  if (!link) return;
+  link.addEventListener("click", () => {
+    trackEvent("whatsapp_click", {
+      source: link.id === "floatingWhatsApp" ? "floating_button" : "contact_section"
+    });
+  });
+});
+
+const leadForm = document.getElementById("leadForm");
+const leadFormStatus = document.getElementById("leadFormStatus");
+
+if (leadForm) {
+  leadForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    const submitButton = leadForm.querySelector("button[type=submit]");
+    const formData = new FormData(leadForm);
+    const productInterest = String(formData.get("producto_interes") || "");
+
+    submitButton.disabled = true;
+    submitButton.textContent = "REGISTRANDO...";
+    leadFormStatus.textContent = "";
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
+      });
+
+      if (!response.ok) throw new Error("No se pudo completar el registro.");
+
+      trackEvent("lead_signup", {
+        product_interest: productInterest,
+        communications_consent: "yes"
+      });
+      leadForm.reset();
+      leadFormStatus.textContent = "¡Gracias! Tu registro fue recibido correctamente.";
+      showToast("Registro recibido ✓");
+    } catch (error) {
+      console.error(error);
+      leadFormStatus.textContent = "No pudimos completar el registro en este momento. Inténtalo nuevamente.";
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "REGISTRARME";
+    }
+  });
+}
 
 // =========================================================
 // MENÚ MÓVIL
