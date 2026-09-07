@@ -3017,3 +3017,156 @@ body.cart-open {
     padding: 7px;
   }
 }
+
+
+/* =========================================================
+   FASE 3 — DESTACADOS + WHATSAPP FLOTANTE
+   ========================================================= */
+.featured-section {
+  padding: clamp(72px, 8vw, 118px) clamp(20px, 5vw, 76px);
+  border-top: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  background: linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,0));
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.featured-card {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 22px;
+  background: rgba(255,255,255,.025);
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.04);
+}
+
+.featured-card-media {
+  position: relative;
+  aspect-ratio: 1 / .82;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: radial-gradient(circle at 50% 36%, rgba(255,255,255,.08), transparent 56%);
+}
+
+.featured-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.featured-card-media > span {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  background: rgba(9,11,15,.8);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(8px);
+}
+
+.featured-card-body {
+  padding: 20px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.featured-card-body > p {
+  margin: 0 0 7px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .62;
+}
+
+.featured-card-body h3 {
+  min-height: 2.4em;
+  margin: 0 0 14px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.15;
+}
+
+.featured-card-body button {
+  width: 100%;
+  margin-top: 16px;
+  min-height: 44px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.featured-card-body button:hover {
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.25);
+}
+
+.whatsapp-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1200;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 18px 0 14px;
+  border-radius: 999px;
+  background: #25D366;
+  color: #07180e;
+  box-shadow: 0 16px 38px rgba(0,0,0,.38);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(0,0,0,.46);
+}
+
+.whatsapp-float svg {
+  width: 27px;
+  height: 27px;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 1050px) {
+  .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .featured-section { padding: 58px 16px; }
+  .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+  .featured-card { border-radius: 16px; }
+  .featured-card-media { padding: 12px; }
+  .featured-card-body { padding: 13px; }
+  .featured-card-body h3 { min-height: 2.6em; font-size: 15px; }
+  .featured-card-body .price-current { font-size: 18px; }
+  .featured-card-body button { min-height: 40px; font-size: 10px; padding: 8px; }
+  .whatsapp-float { right: 14px; bottom: 14px; width: 54px; height: 54px; padding: 0; justify-content: center; }
+  .whatsapp-float span { display: none; }
+}
