@@ -230,7 +230,7 @@
       <div class="signup-copy">
         <p class="eyebrow">NOVEDADES TK ELITE LAB</p>
         <h2>MANTENTE AL DÍA.</h2>
-        <p>Regístrate para recibir novedades, disponibilidad de productos y promociones de TK Elite Lab.</p>
+        <p>Completa tus datos para continuar a una consulta por WhatsApp y, si lo autorizas, recibir novedades, disponibilidad y promociones de TK Elite Lab.</p>
       </div>
 
       <form class="signup-form" id="leadForm" name="tk-elite-leads" method="POST" data-netlify="true" netlify-honeypot="bot-field">
@@ -282,7 +282,7 @@
           <span>Acepto recibir novedades, promociones y comunicaciones de TK Elite Lab. *</span>
         </label>
 
-        <button class="btn btn-primary signup-submit" type="submit">REGISTRARME</button>
+        <button class="btn btn-primary signup-submit" type="submit">REGISTRAR Y CONTINUAR A WHATSAPP</button>
         <p class="signup-privacy">Tus datos serán utilizados para gestionar tu registro y, con tu autorización, enviarte comunicaciones de TK Elite Lab. Puedes solicitar dejar de recibirlas en cualquier momento.</p>
         <p class="signup-status" id="leadFormStatus" role="status" aria-live="polite"></p>
       </form>
@@ -332,7 +332,7 @@
         <h3>Atención rápida y personalizada.</h3>
         <p>Escríbenos directamente para consultar productos, presentaciones y disponibilidad.</p>
         <div class="request-actions">
-          <a class="btn btn-primary" id="generalWhatsApp" href="https://api.whatsapp.com/send?phone=593993046766&amp;text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20los%20productos%20de%20TK%20Elite%20Lab." target="_blank" rel="noopener noreferrer">ESCRIBIR POR WHATSAPP</a>
+          <a class="btn btn-primary" id="generalWhatsApp" href="#registro">CONTINUAR A WHATSAPP</a>
           <a class="btn btn-ghost" href="#productos">VOLVER AL CATÁLOGO</a>
         </div>
       </div>
@@ -355,7 +355,7 @@
 
 
 
-  <a class="whatsapp-float" id="floatingWhatsApp" href="https://wa.me/593993046766?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20los%20productos%20de%20TK%20Elite%20Lab." target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
+  <a class="whatsapp-float" id="floatingWhatsApp" href="#registro" aria-label="Registrar datos para consultar por WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
       <path d="M16.04 3C9.39 3 4 8.26 4 14.75c0 2.25.66 4.45 1.9 6.34L4 28l7.13-1.82a12.3 12.3 0 0 0 4.9 1.02h.01C22.69 27.2 28 21.94 28 15.45 28 8.96 22.69 3 16.04 3Zm0 21.98h-.01a10.1 10.1 0 0 1-4.57-1.1l-.33-.17-4.23 1.08 1.13-4.02-.21-.34a9.58 9.58 0 0 1-1.55-5.22c0-5.28 4.38-9.58 9.77-9.58 5.38 0 9.76 4.3 9.76 9.58 0 5.28-4.38 9.77-9.76 9.77Zm5.36-7.3c-.29-.14-1.72-.83-1.99-.93-.27-.1-.47-.14-.66.14-.2.29-.76.94-.93 1.13-.17.19-.34.22-.63.07-.29-.14-1.22-.44-2.32-1.4-.86-.75-1.44-1.67-1.61-1.96-.17-.29-.02-.44.13-.58.13-.13.29-.34.44-.51.15-.17.2-.29.29-.48.1-.19.05-.36-.02-.51-.07-.14-.66-1.56-.9-2.14-.24-.56-.49-.49-.66-.5h-.57c-.2 0-.51.07-.78.36-.27.29-1.03 1-1.03 2.43 0 1.44 1.07 2.82 1.22 3.02.15.19 2.1 3.14 5.08 4.4.71.3 1.26.48 1.69.62.71.22 1.36.19 1.87.12.57-.08 1.72-.69 1.96-1.35.24-.67.24-1.24.17-1.36-.07-.12-.27-.19-.56-.33Z"/>
     </svg>
@@ -380,7 +380,58 @@
         <span>Total estimado</span>
         <strong id="cartTotal">$0</strong>
       </div>
-      <p class="cart-note">La disponibilidad y los requisitos aplicables se confirman por WhatsApp.</p>
+      <p class="cart-note">Completa tus datos para habilitar la consulta por WhatsApp.</p>
+
+      <form class="cart-customer-form" id="cartCustomerForm" name="tk-elite-order-leads" method="POST" data-netlify="true" netlify-honeypot="order-bot-field">
+        <input type="hidden" name="form-name" value="tk-elite-order-leads">
+        <input type="hidden" name="seleccion" id="cartLeadSelection" value="">
+        <input type="hidden" name="total_estimado" id="cartLeadTotal" value="">
+        <p class="hidden-field" aria-hidden="true">
+          <label>No completar: <input name="order-bot-field" tabindex="-1" autocomplete="off"></label>
+        </p>
+
+        <div class="cart-customer-grid">
+          <label>
+            <span>Nombre completo *</span>
+            <input type="text" name="nombre" id="cartCustomerName" autocomplete="name" required placeholder="Tu nombre completo">
+          </label>
+          <label>
+            <span>Correo electrónico *</span>
+            <input type="email" name="email" id="cartCustomerEmail" autocomplete="email" required placeholder="correo@ejemplo.com">
+          </label>
+          <label>
+            <span>Producto de interés *</span>
+            <select name="producto_interes" id="cartInterestProduct" required>
+              <option value="">Selecciona un producto</option>
+              <option>Creatina Monohidrato</option>
+              <option>Cardarine TK / GW-501516</option>
+              <option>Lipodren</option>
+              <option>BPC-157 TK</option>
+              <option>Grow Factor Amino TK</option>
+              <option>Berberine TK</option>
+              <option>GHK-Cu TK</option>
+              <option>CLEN TK</option>
+              <option>Clomid 50 TK</option>
+              <option>Mixing Water</option>
+              <option>Nitrotest</option>
+              <option>Ipamorelin TK</option>
+              <option>Retatrutide TK</option>
+              <option>KLOW TK</option>
+            </select>
+          </label>
+          <label>
+            <span>Sugerencias <em>(opcional)</em></span>
+            <textarea name="sugerencias" id="cartCustomerSuggestions" rows="3" placeholder="Comentarios o sugerencias"></textarea>
+          </label>
+        </div>
+
+        <label class="cart-consent-check">
+          <input type="checkbox" name="consentimiento_comunicaciones" id="cartCustomerConsent" value="si" required>
+          <span>Acepto recibir novedades, promociones y comunicaciones de TK Elite Lab. *</span>
+        </label>
+        <p class="cart-form-status" id="cartCustomerStatus" role="status" aria-live="polite"></p>
+      </form>
+
       <div class="cart-footer-actions">
         <button class="cart-clear" id="clearCart" type="button">VACIAR CARRITO</button>
         <a class="cart-whatsapp" id="sendCartWhatsApp" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">ENVIAR PEDIDO POR WHATSAPP</a>

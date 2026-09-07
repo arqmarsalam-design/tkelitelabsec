@@ -322,6 +322,11 @@ const cartItems = document.getElementById("cartItems");
 const cartTotal = document.getElementById("cartTotal");
 const clearCartButton = document.getElementById("clearCart");
 const sendCartWhatsApp = document.getElementById("sendCartWhatsApp");
+const cartCustomerForm = document.getElementById("cartCustomerForm");
+const cartCustomerStatus = document.getElementById("cartCustomerStatus");
+const cartLeadSelection = document.getElementById("cartLeadSelection");
+const cartLeadTotal = document.getElementById("cartLeadTotal");
+const cartInterestProduct = document.getElementById("cartInterestProduct");
 
 // =========================================================
 // HELPERS
@@ -952,13 +957,17 @@ function renderCart() {
   cartTotal.textContent = formatPrice(cartEstimatedTotal());
   clearCartButton.disabled = unitCount === 0;
 
-  if (unitCount === 0) {
+  const customerReady = cartCustomerForm ? cartCustomerForm.checkValidity() : false;
+  if (unitCount === 0 || !customerReady) {
     sendCartWhatsApp.setAttribute("aria-disabled", "true");
     sendCartWhatsApp.setAttribute("href", "#");
   } else {
     sendCartWhatsApp.setAttribute("aria-disabled", "false");
-    sendCartWhatsApp.setAttribute("href", buildCartWhatsAppUrl());
+    sendCartWhatsApp.setAttribute("href", buildCartWhatsAppUrl(getCartCustomerData()));
   }
+
+  syncCartLeadMetadata();
+  suggestInterestFromCart();
 }
 
 function openCart() {
@@ -982,7 +991,7 @@ function closeCart() {
   document.body.classList.remove("cart-open");
 }
 
-function buildCartWhatsAppUrl() {
+function buildCartWhatsAppUrl(customer = {}) {
   const entries = Object.entries(cart)
     .map(([productId, quantity]) => [getProduct(productId), Number(quantity)])
     .filter(([product, quantity]) => product && quantity > 0);
@@ -994,13 +1003,74 @@ function buildCartWhatsAppUrl() {
     return `• ${quantity} × ${product.title} (${product.presentation}) — ${formatPrice(subtotal)}`;
   });
 
+  const customerLines = [
+    customer.name ? `Cliente: ${customer.name}` : "",
+    customer.email ? `Correo: ${customer.email}` : "",
+    customer.productInterest ? `Producto de interés: ${customer.productInterest}` : "",
+    customer.suggestions ? `Sugerencias: ${customer.suggestions}` : ""
+  ].filter(Boolean);
+
   const message =
     `Hola, quisiera consultar disponibilidad de este pedido de TK Elite Lab:\n\n` +
+    `${customerLines.join("\n")}\n\n` +
     `${lines.join("\n")}\n\n` +
     `Total estimado: ${formatPrice(cartEstimatedTotal())}\n\n` +
     `Por favor, confírmame disponibilidad para continuar con el pedido.`;
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function getCartCustomerData() {
+  if (!cartCustomerForm) return {};
+  const data = new FormData(cartCustomerForm);
+  return {
+    name: String(data.get("nombre") || "").trim(),
+    email: String(data.get("email") || "").trim(),
+    productInterest: String(data.get("producto_interes") || "").trim(),
+    suggestions: String(data.get("sugerencias") || "").trim(),
+    consent: data.get("consentimiento_comunicaciones") === "si"
+  };
+}
+
+function cartSelectionText() {
+  return Object.entries(cart)
+    .map(([productId, quantity]) => [getProduct(productId), Number(quantity)])
+    .filter(([product, quantity]) => product && quantity > 0)
+    .map(([product, quantity]) => `${quantity} × ${product.title} (${product.presentation})`)
+    .join(" | ");
+}
+
+function syncCartLeadMetadata() {
+  if (cartLeadSelection) cartLeadSelection.value = cartSelectionText();
+  if (cartLeadTotal) cartLeadTotal.value = formatPrice(cartEstimatedTotal());
+}
+
+function suggestInterestFromCart() {
+  if (!cartInterestProduct || cartInterestProduct.value) return;
+  const firstEntry = Object.entries(cart).find(([productId, quantity]) => getProduct(productId) && Number(quantity) > 0);
+  if (!firstEntry) return;
+  const product = getProduct(firstEntry[0]);
+  if (!product) return;
+  const match = Array.from(cartInterestProduct.options).find(option => option.textContent.trim() === product.title.trim());
+  if (match) cartInterestProduct.value = match.value || match.textContent;
+}
+
+async function saveCartLead() {
+  if (!cartCustomerForm) throw new Error("Formulario de cliente no disponible.");
+  syncCartLeadMetadata();
+  const formData = new FormData(cartCustomerForm);
+  const response = await fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString()
+  });
+  if (!response.ok) throw new Error("No se pudo registrar la consulta.");
+}
+
+function resetCartCustomerForm() {
+  if (!cartCustomerForm) return;
+  cartCustomerForm.reset();
+  if (cartCustomerStatus) cartCustomerStatus.textContent = "";
 }
 
 function resetCartState(message = "Selección enviada. El carrito quedó listo para una nueva consulta.") {
@@ -1025,11 +1095,12 @@ function resetCartState(message = "Selección enviada. El carrito quedó listo p
     updateProductActionState(currentProductId);
   }
 
+  resetCartCustomerForm();
   closeCart();
   if (message) showToast(message);
 }
 
-function sendCartToWhatsApp(event) {
+async function sendCartToWhatsApp(event) {
   if (event) event.preventDefault();
 
   if (!cartUnitCount()) {
@@ -1037,24 +1108,49 @@ function sendCartToWhatsApp(event) {
     return;
   }
 
-  const whatsappUrl = buildCartWhatsAppUrl();
-  trackEvent("whatsapp_order_click", {
-    item_count: cartUnitCount(),
-    cart_value: cartEstimatedTotal()
-  });
-
-  try {
-    sessionStorage.setItem("tkEliteLabResetAfterWhatsApp", "1");
-  } catch (error) {
-    // Continuar aunque sessionStorage no esté disponible.
+  if (!cartCustomerForm || !cartCustomerForm.checkValidity()) {
+    if (cartCustomerStatus) cartCustomerStatus.textContent = "Completa los campos obligatorios para continuar.";
+    cartCustomerForm?.reportValidity();
+    showToast("Completa tus datos antes de continuar a WhatsApp.");
+    return;
   }
 
-  // Limpiar antes de salir garantiza que, al volver desde WhatsApp, la consulta anterior no reaparezca.
-  resetCartState();
+  const customer = getCartCustomerData();
+  const whatsappUrl = buildCartWhatsAppUrl(customer);
+  const originalText = sendCartWhatsApp.textContent;
+  sendCartWhatsApp.setAttribute("aria-disabled", "true");
+  sendCartWhatsApp.textContent = "REGISTRANDO...";
+  if (cartCustomerStatus) cartCustomerStatus.textContent = "Guardando tus datos de consulta...";
 
-  const opened = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  if (!opened) {
-    window.location.href = whatsappUrl;
+  try {
+    await saveCartLead();
+
+    trackEvent("lead_signup", {
+      source: "cart_whatsapp",
+      product_interest: customer.productInterest,
+      communications_consent: customer.consent ? "yes" : "no"
+    });
+    trackEvent("whatsapp_order_click", {
+      item_count: cartUnitCount(),
+      cart_value: cartEstimatedTotal(),
+      product_interest: customer.productInterest
+    });
+
+    try {
+      sessionStorage.setItem("tkEliteLabResetAfterWhatsApp", "1");
+    } catch (error) {}
+
+    const opened = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    resetCartState();
+    if (!opened) window.location.href = whatsappUrl;
+  } catch (error) {
+    console.error(error);
+    if (cartCustomerStatus) cartCustomerStatus.textContent = "No pudimos registrar tus datos. Inténtalo nuevamente.";
+    showToast("No se pudo registrar la consulta.");
+    sendCartWhatsApp.setAttribute("aria-disabled", "false");
+  } finally {
+    sendCartWhatsApp.textContent = originalText;
+    renderCart();
   }
 }
 
@@ -1081,6 +1177,15 @@ clearCartButton.addEventListener("click", () => {
 
 sendCartWhatsApp.addEventListener("click", sendCartToWhatsApp);
 
+if (cartCustomerForm) {
+  ["input", "change"].forEach(eventName => {
+    cartCustomerForm.addEventListener(eventName, () => {
+      if (cartCustomerStatus) cartCustomerStatus.textContent = "";
+      renderCart();
+    });
+  });
+}
+
 window.addEventListener("pageshow", () => {
   try {
     if (sessionStorage.getItem("tkEliteLabResetAfterWhatsApp") === "1") {
@@ -1105,10 +1210,15 @@ document.addEventListener("keydown", event => {
 
 [document.getElementById("generalWhatsApp"), document.getElementById("floatingWhatsApp")].forEach(link => {
   if (!link) return;
-  link.addEventListener("click", () => {
+  link.addEventListener("click", event => {
+    event.preventDefault();
     trackEvent("whatsapp_click", {
-      source: link.id === "floatingWhatsApp" ? "floating_button" : "contact_section"
+      source: link.id === "floatingWhatsApp" ? "floating_button" : "contact_section",
+      stage: "registration_required"
     });
+    document.getElementById("registro")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => leadForm?.querySelector('input[name="nombre"]')?.focus(), 450);
+    showToast("Completa tus datos para continuar a WhatsApp.");
   });
 });
 
@@ -1120,7 +1230,10 @@ if (leadForm) {
     event.preventDefault();
     const submitButton = leadForm.querySelector("button[type=submit]");
     const formData = new FormData(leadForm);
-    const productInterest = String(formData.get("producto_interes") || "");
+    const name = String(formData.get("nombre") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const productInterest = String(formData.get("producto_interes") || "").trim();
+    const suggestions = String(formData.get("sugerencias") || "").trim();
 
     submitButton.disabled = true;
     submitButton.textContent = "REGISTRANDO...";
@@ -1136,18 +1249,32 @@ if (leadForm) {
       if (!response.ok) throw new Error("No se pudo completar el registro.");
 
       trackEvent("lead_signup", {
+        source: "general_whatsapp",
         product_interest: productInterest,
         communications_consent: "yes"
       });
+
+      const details = [
+        name ? `Cliente: ${name}` : "",
+        email ? `Correo: ${email}` : "",
+        productInterest ? `Producto de interés: ${productInterest}` : "",
+        suggestions ? `Sugerencias: ${suggestions}` : ""
+      ].filter(Boolean).join("\n");
+      const message = `Hola, quisiera información de TK Elite Lab.\n\n${details}`;
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+      trackEvent("whatsapp_click", { source: "registered_lead", product_interest: productInterest });
+      leadFormStatus.textContent = "Registro recibido. Abriendo WhatsApp...";
+      const opened = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
       leadForm.reset();
-      leadFormStatus.textContent = "¡Gracias! Tu registro fue recibido correctamente.";
       showToast("Registro recibido ✓");
+      if (!opened) window.location.href = whatsappUrl;
     } catch (error) {
       console.error(error);
       leadFormStatus.textContent = "No pudimos completar el registro en este momento. Inténtalo nuevamente.";
     } finally {
       submitButton.disabled = false;
-      submitButton.textContent = "REGISTRARME";
+      submitButton.textContent = "REGISTRAR Y CONTINUAR A WHATSAPP";
     }
   });
 }

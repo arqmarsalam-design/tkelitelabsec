@@ -3276,3 +3276,78 @@ body.cart-open {
   .signup-full { grid-column: auto; }
   .signup-form { padding: 18px; border-radius: 16px; }
 }
+
+/* =========================================================
+   FASE 3.3 · DATOS OBLIGATORIOS ANTES DE WHATSAPP
+   ========================================================= */
+.cart-customer-form {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  background: rgba(255,255,255,.035);
+}
+.cart-customer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.cart-customer-grid label,
+.cart-consent-check {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #f3f3f3;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.cart-customer-grid input,
+.cart-customer-grid select,
+.cart-customer-grid textarea {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 10px;
+  background: rgba(255,255,255,.055);
+  color: #fff;
+  padding: 10px 11px;
+  font: inherit;
+  font-weight: 500;
+  outline: none;
+}
+.cart-customer-grid textarea { resize: vertical; }
+.cart-customer-grid select option { color: #111; }
+.cart-customer-grid input:focus,
+.cart-customer-grid select:focus,
+.cart-customer-grid textarea:focus {
+  border-color: rgba(255,255,255,.4);
+}
+.cart-consent-check {
+  margin-top: 10px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 9px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.cart-consent-check input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+.cart-form-status {
+  min-height: 18px;
+  margin: 8px 0 0;
+  font-size: .78rem;
+  color: rgba(255,255,255,.78);
+}
+.cart-whatsapp[aria-disabled="true"] {
+  opacity: .5;
+  cursor: not-allowed;
+}
+@media (max-width: 620px) {
+  .cart-customer-grid { grid-template-columns: 1fr; }
+  .cart-customer-form { padding: 12px; }
+}
